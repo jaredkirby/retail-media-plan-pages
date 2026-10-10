@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Durable retail media operations rebuild</title>
+<script>try{const savedTheme=localStorage.getItem('rm-theme');document.documentElement.dataset.theme=['light','dark','auto'].includes(savedTheme)?savedTheme:'auto'}catch(e){}</script>
+<style>
+:root{--bg:#fafafa;--panel:#fff;--soft:#f0f0f0;--ink:#171717;--muted:#595959;--line:#d5d5d5;--inverse:#fff;--strong:#171717;color-scheme:light;--font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--font-mono:monospace}
+:root[data-theme="dark"]{--bg:#111;--panel:#191919;--soft:#242424;--ink:#f2f2f2;--muted:#b0b0b0;--line:#414141;--inverse:#111;--strong:#f2f2f2;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root[data-theme="auto"]{--bg:#111;--panel:#191919;--soft:#242424;--ink:#f2f2f2;--muted:#b0b0b0;--line:#414141;--inverse:#111;--strong:#f2f2f2;color-scheme:dark}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--font-body)}a{color:inherit;text-underline-offset:4px}button,select{font:inherit}button{cursor:pointer}button,a,summary{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--ink);outline-offset:5px}::selection{background:var(--ink);color:var(--bg)}
+.skip{position:fixed;top:-100px;left:20px;z-index:100;background:var(--ink);color:var(--inverse);padding:10px}.skip:focus{top:10px}
+.top{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:var(--bg)}.top-inner{max-width:1280px;margin:auto;padding:16px 40px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:750;display:flex;align-items:center;gap:12px;text-decoration:none}.brand-mark{width:22px;height:22px;background:var(--ink);display:inline-block;flex-shrink:0}.toolbar{display:flex;gap:16px;align-items:center}.theme{display:flex;border:1px solid var(--line);padding:3px;border-radius:5px}.theme button{border:0;background:transparent;color:var(--muted);font-size:12px;padding:5px 10px;border-radius:2px}.theme button[aria-pressed="true"]{background:var(--ink);color:var(--inverse)}.print{background:none;border:0;color:var(--muted);font-size:12px;padding:8px}.js-controls{display:none}.js .js-controls{display:flex}
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px 70px;display:grid;grid-template-columns:190px minmax(0,1fr);gap:62px}.main{min-width:0}.toc{position:sticky;top:110px;align-self:start;padding-top:53px;max-height:calc(100dvh - 125px);overflow:auto}.toc-title,.eyebrow,.label{font:600 11px/1.5 var(--font-body);letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}.toc-title{margin:0 0 15px}.toc a{display:block;font-size:13px;color:var(--muted);text-decoration:none;padding:8px 0}.toc a:hover,.toc a.active{color:var(--ink)}.toc a.active{font-weight:650}.toc-note{font-size:12px;color:var(--muted);margin-top:24px;padding-top:20px;border-top:1px solid var(--line);line-height:1.6}
+.hero{padding:65px 0 48px}.hero .eyebrow{margin-bottom:22px}h1{font-size:clamp(42px,5.3vw,72px);letter-spacing:-.06em;line-height:1.04;font-weight:650;margin:0 0 26px;max-width:800px}h2{font-size:30px;line-height:1.2;letter-spacing:-.035em;font-weight:650;margin:8px 0 14px}h3{font-size:20px;letter-spacing:-.025em;line-height:1.3;margin:0 0 10px}p{margin:0 0 16px}.lead{font-size:21px;line-height:1.5;max-width:670px;margin:0;letter-spacing:-.015em}.badges{display:flex;gap:12px 24px;flex-wrap:wrap;margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}.badge{font-size:12px;color:var(--muted)}
+.section{padding:42px 0;border-top:1px solid var(--line);scroll-margin-top:100px}.section-intro{max-width:700px;color:var(--muted);margin-bottom:26px}.grid2,.grid3,.grid4{display:grid;gap:18px}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{min-width:0;background:var(--panel);border:1px solid var(--line);padding:22px}.card p{font-size:14px;line-height:1.55;color:var(--muted);margin:0}.card .label{margin-bottom:14px}.source h3{font-size:22px}
+.flow-label{display:flex;align-items:center;justify-content:center;gap:15px;font-size:12px;color:var(--muted);padding:19px 0;text-align:center}.flow-label svg{width:16px;height:25px;stroke:var(--muted);fill:none;stroke-width:1.5;flex-shrink:0}
+.ledger{margin:28px 0;border-left:2px solid var(--ink);padding:0 0 0 24px}.ledger h3{font-size:26px;margin:10px 0 14px}.ledger p{font-size:15px;max-width:760px;color:var(--muted)}.ledger-meta{display:flex;gap:10px 20px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}.ledger-meta span{font-size:12px;color:var(--muted)}
+.fine{font-size:12px;color:var(--muted);margin-top:16px}.callout{border:1px solid var(--ink);padding:18px 22px;font-size:14px;margin-top:22px}.callout strong{color:var(--ink)}
+.filters,.tier-buttons,.scenario-buttons{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.filter,.tier,.scenario,.control{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:4px;padding:8px 12px;font-size:12px;line-height:1.5}.filter:hover,.tier:hover,.scenario:hover,.control:hover{background:var(--soft)}.filter[aria-pressed="true"],.tier[aria-pressed="true"],.scenario[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--inverse)}
+.cycles-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:18px;align-items:start}.cycle-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.cycle-btn{display:flex;flex-direction:column;text-align:left;background:var(--panel);border:1px solid var(--line);padding:15px;color:var(--ink);min-height:92px;transition:background .15s}.cycle-btn:hover{background:var(--soft)}.cycle-btn span{font-size:13px;font-weight:600;line-height:1.4}.cycle-btn small{font-size:11px;color:var(--muted);margin-top:8px}.cycle-btn[aria-pressed="true"]{border-color:var(--ink);background:var(--soft);box-shadow:inset 2px 0 var(--ink)}.cycle-count{font-size:12px;color:var(--muted)}
+.detail{position:sticky;top:100px;min-height:510px;background:var(--panel);border:1px solid var(--line);padding:26px}.detail h3{font-size:29px;margin:13px 0 15px;letter-spacing:-.035em;line-height:1.2}.detail-desc{font-size:15px;color:var(--muted)}.facts{margin:24px 0 0;display:grid;gap:16px}.facts dt{font:600 10px/1.5 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}.facts dd{margin:0;font-size:14px;line-height:1.6}.tactic{background:var(--soft);padding:18px;margin-top:24px}.tactic label{font-size:12px;font-weight:600;display:block;margin-bottom:10px}.tactic select{max-width:100%;padding:8px 10px;border-radius:3px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:13px}.tactic p{font-size:13px;margin:12px 0 0}
+.scope-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;border:1px solid var(--line);background:var(--line);margin:25px 0}.scope-strip div{background:var(--panel);padding:18px}.scope-strip strong{display:block;font-size:16px;margin-bottom:8px}.scope-strip span{font-size:13px;line-height:1.55;color:var(--muted)}
+.tier-panel{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;border:1px solid var(--line);background:var(--panel);padding:28px}.tier-panel h3{font-size:28px;margin:12px 0 15px;letter-spacing:-.035em}.tier-panel p{font-size:15px;color:var(--muted)}.tier-panel ul{font-size:14px;margin:0;padding-left:19px}.tier-panel li{padding-bottom:10px}.guard{margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.recovery-box{border:1px solid var(--line);background:var(--panel);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.recovery-steps{padding:25px;margin:0;list-style:none;counter-reset:steps;border-right:1px solid var(--line)}.recovery-steps li{counter-increment:steps;display:flex;gap:13px;padding:12px 0;font-size:13px;color:var(--muted);align-items:center}.recovery-steps li::before{content:counter(steps);font:13px var(--font-mono);display:grid;place-items:center;flex-shrink:0;border:1px solid var(--line);width:27px;height:27px}.recovery-steps li.current{color:var(--ink);font-weight:600}.recovery-steps li.current::before{background:var(--ink);border-color:var(--ink);color:var(--inverse)}.recovery-steps li.done::before{color:var(--ink);border-color:var(--ink)}.recovery-detail{padding:30px;display:flex;flex-direction:column;justify-content:center;min-height:330px}.recovery-detail h3{font-size:27px;letter-spacing:-.035em}.recovery-detail p{font-size:15px;color:var(--muted)}.controls{display:flex;gap:9px;margin-top:18px;flex-wrap:wrap}.control.primary{background:var(--ink);color:var(--inverse);border-color:var(--ink)}.control:disabled{opacity:.4;cursor:default}.step-count{font:12px var(--font-mono);color:var(--muted);margin-bottom:15px}
+.historical{margin-top:20px}.historical h3{font-size:17px}.historical p{font-size:13px}.timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.phase{padding:22px;background:var(--panel);border:1px solid var(--line)}.num{font:13px var(--font-mono);color:var(--muted)}.phase h3{font-size:18px;margin-top:18px}.phase p{font-size:14px;color:var(--muted)}.phase .exit{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;font-size:12px}
+details{background:var(--panel);border:1px solid var(--line);margin-top:18px}summary{cursor:pointer;font-size:13px;font-weight:600;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 22px}summary::-webkit-details-marker{display:none}summary::after{content:'+';font-size:20px;font-weight:400;line-height:1}details[open]>summary::after{content:'−'}summary:hover{background:var(--soft)}details ul{font-size:13px;line-height:1.7;padding:0 22px 6px 42px}details li{margin-bottom:8px}.footer{font-size:12px;color:var(--muted);padding:28px 0 40px;border-top:1px solid var(--line)}
+@media(min-width:1400px){.wrap{gap:80px}}
+@media(max-width:1100px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.cycle-list{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.scope-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1000px){.wrap{grid-template-columns:150px minmax(0,1fr);gap:32px;padding:0 28px 60px}.top-inner{padding:14px 28px}.grid3{grid-template-columns:1fr}}
+@media(max-width:760px){html{scroll-padding-top:135px}.wrap{display:block;padding:0 22px 45px}.top-inner{padding:12px 20px;gap:12px}.brand{font-size:10px;letter-spacing:.08em;gap:8px}.brand-mark{width:16px;height:16px}.toolbar{gap:0}.print{display:none}.theme button{padding:5px 7px;font-size:11px}.toc{z-index:20;top:57px;display:flex;gap:4px;align-items:center;padding:10px 22px;background:var(--bg);overflow-x:auto;max-height:none;white-space:nowrap;margin:0 -22px;border-bottom:1px solid var(--line)}.toc-title,.toc-note{display:none}.toc a{padding:6px 8px;border-bottom:1px solid transparent;font-size:12px}.toc a.active{border-bottom-color:var(--ink)}.hero{padding:42px 0 34px}h1{font-size:49px}.lead{font-size:19px}.badges{gap:12px 20px}.section{padding:34px 0;scroll-margin-top:135px}h2{font-size:27px}.grid2,.grid3,.grid4,.timeline{grid-template-columns:1fr}.cycles-layout,.tier-panel,.recovery-box{grid-template-columns:1fr}.cycle-list{grid-template-columns:repeat(2,minmax(0,1fr))}.detail{position:static;min-height:0;padding:22px}.tier-panel{padding:23px}.recovery-steps{border-right:0;border-bottom:1px solid var(--line)}.recovery-detail{padding:25px;min-height:280px}.ledger{padding-left:20px}.flow-label{font-size:11px}.scope-strip div{padding:15px}.source h3{font-size:21px}.facts{gap:17px}}
+@media(max-width:420px){.top-inner{flex-wrap:wrap;gap:8px}.brand{font-size:10px}.theme button{padding:5px 6px}.toc{position:static}h1{font-size:43px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{:root,:root[data-theme]{--bg:#fff;--panel:#fff;--soft:#f5f5f5;--ink:#000;--muted:#444;--line:#bbb;--inverse:#fff;--strong:#000;color-scheme:light}body{font-size:11px}.top,.toc,.skip,.filters,.tier-buttons,.scenario-buttons,.controls,.tactic{display:none!important}.wrap{display:block;padding:0;max-width:none}.hero{padding:0 0 20px}h1{font-size:40px}.lead{font-size:17px}.section{padding:22px 0}h2{font-size:24px}.detail{position:static}.card,.phase,.ledger,.tier-panel,.recovery-box{break-inside:avoid}details:not([open])>ul{display:block}summary::after{display:none}a{text-decoration:none}.footer{padding:20px 0}@page{margin:16mm}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip navigation</a>
+<header class="top"><div class="top-inner"><a class="brand" href="#main"><span class="brand-mark" aria-hidden="true"></span>Retail media / Operations</a><div class="toolbar js-controls"><div class="theme" role="group" aria-label="Color theme"><button data-set-theme="light" aria-pressed="false">Light</button><button data-set-theme="dark" aria-pressed="false">Dark</button><button data-set-theme="auto" aria-pressed="true">Auto</button></div><button class="print" id="print-page">Print / PDF</button></div></div></header>
+<div class="wrap">
+<nav class="toc" aria-label="Page sections">
+ <div class="toc-title">Rebuild proposal</div>
+ <a href="#architecture">01 Architecture</a>
+ <a href="#cycles">02 Operating cycles</a>
+ <a href="#authority">03 Earned autonomy</a>
+ <a href="#recovery">04 Recovery</a>
+ <a href="#proof">05 Proof and build order</a>
+ <a href="#sources">06 Evidence</a>
+ <div class="toc-note">4 October 2026<br><br>Design judgments and acceptance gates. No source promotion or platform actions.</div>
+</nav>
+<main class="main" id="main">
+ <header class="hero">
+  <div class="eyebrow">Retail media operations / proposed rebuild</div>
+  <h1>Durable retail media operations</h1>
+  <p class="lead">One business ledger. Many operating clocks. Agents that can be replaced while the work, evidence, and authority continue.</p>
+  <div class="badges"><span class="badge">Jared’s operation first</span><span class="badge">Path to a multi-user product</span><span class="badge">Earned autonomy</span><span class="badge">Skai MCP + Shopperations API</span></div>
+ </header>
+
+ <section class="section" id="architecture">
+  <div class="eyebrow">01 / Architecture</div><h2>Connect commitments to verified outcomes</h2>
+  <p class="section-intro">A business goal can span several campaigns, retailers, and tactics. Shared records connect their funding, work, and results. A workspace selects the records an operator needs.</p>
+  <div class="grid3">
+   <article class="card source plan"><div class="label">Financial plan</div><h3>Shopperations API</h3><p>Observed plan revisions, allocation facts, dates, and source statuses. Explicit approval evidence establishes usable funding authority.</p></article>
+   <article class="card source"><div class="label">Campaign evidence and actions</div><h3>Skai MCP servers</h3><p>Reporting is the required data path. Discover Insights and Campaign Actions capabilities by account. Retain previews, receipts, and read-back evidence.</p></article>
+   <article class="card source ops"><div class="label">Operational dependencies</div><h3>People and partners</h3><p>Briefs, creative, build receipts, independent QA, retailer responses, and invoices. Their facts have defined owners and acceptance rules.</p></article>
+  </div>
+  <div class="flow-label"><svg aria-hidden="true" viewBox="0 0 16 25"><path d="M8 0v22M3 17l5 5 5-5"/></svg> Retain immutable evidence; accept it for a named purpose</div>
+  <div class="grid4">
+   <article class="card"><div class="label">Source broker</div><h3>Scope and completeness</h3><p>Own credentials, tool schemas, profiles, pagination, report jobs, and provenance.</p></article>
+   <article class="card"><div class="label">Planning</div><h3>Financial conservation</h3><p>Reconcile allocations and reserve on the declared cost basis. Stage amendments.</p></article>
+   <article class="card"><div class="label">Identity</div><h3>Exact membership</h3><p>Link goals, executions, native entities, and products. Preserve missing and disputed scope.</p></article>
+   <article class="card"><div class="label">Measurement</div><h3>Permitted claims</h3><p>Preserve metric grain, attribution, time zone, maturity, and aggregation limits.</p></article>
+  </div>
+  <article class="ledger">
+   <div class="label">Accepted business state</div><h3>One transactional operations ledger</h3>
+   <p>Plan revisions, typed work, approvals, effect intents, outcomes, and audit events share one acceptance boundary. A decision commits in full. Every surface reads the same accepted revision.</p>
+   <div class="ledger-meta"><span>PostgreSQL: business records</span><span>Private objects: immutable evidence</span><span>Git: procedures and fixtures</span><span>Outbox: reliable dispatch</span></div>
+  </article>
+  <div class="grid2">
+   <article class="card runtime"><div class="label">Durable execution progress</div><h3>Temporal workflows</h3><p>Timers, human waits, dependencies, report-job resumption, and recovery. Workflow history records progress. Accepted business truth stays in the ledger.</p></article>
+   <article class="card agent"><div class="label">Bounded candidates</div><h3>Replaceable agent workers</h3><p>Planner, launch coordinator, search specialist, investigator, reporting analyst, and learning roles. Each receives a scoped assignment, evidence, limits, and a procedure version.</p></article>
+  </div>
+  <div class="flow-label"><svg aria-hidden="true" viewBox="0 0 16 25"><path d="M8 0v22M3 17l5 5 5-5"/></svg> Typed commands and validated results; no separate chat ledger</div>
+  <div class="grid3">
+   <article class="card"><div class="label">Act</div><h3>Operations queue</h3><p>Decisions, exact changes, owners, due times, blockers, and verification.</p></article>
+   <article class="card"><div class="label">Understand</div><h3>Chat and workspace views</h3><p>Ask why, inspect evidence, change scope, and propose work through the same interfaces.</p></article>
+   <article class="card"><div class="label">Communicate</div><h3>Reports and exports</h3><p>Versioned facts and narrative with exact audience and release authority.</p></article>
+  </div>
+  <div class="callout"><strong>First implementation gate:</strong> prove complete campaign evidence through Skai MCP. The inspected adapters retain bounded observations. Missing capability becomes owned work, with affected claims or actions blocked.</div>
+  <p class="fine">Proposed technology choices: moderate confidence. Source boundaries and atomic acceptance requirements: high confidence. Actual account capabilities: unknown until tested.</p>
+ </section>
+
+ <section class="section" id="cycles">
+  <div class="eyebrow">02 / Operating cycles</div><h2>Different work needs different clocks</h2>
+  <p class="section-intro">Select a cycle to see its trigger, owner, evidence, waiting state, and completion rule. These are proposed lifecycle definitions grounded in both projects’ operating history.</p>
+  <div class="scope-strip">
+   <div><strong>Goal</strong><span>What outcome the client funds</span></div>
+   <div><strong>Allocation</strong><span>Where and when funding applies</span></div>
+   <div><strong>Execution</strong><span>Which native entities deliver it</span></div>
+   <div><strong>Work</strong><span>What must happen next, and who owns it</span></div>
+  </div>
+  <div class="filters" id="cycle-filters" aria-label="Filter cycles"></div>
+  <p class="cycle-count" id="cycle-count"></p>
+  <div class="cycles-layout">
+   <div class="cycle-list" id="cycle-list" aria-label="Operating cycles"></div>
+   <article class="detail" id="cycle-detail" aria-live="polite">
+    <div class="label" id="cycle-group"></div><h3 id="cycle-title"></h3><p class="detail-desc" id="cycle-desc"></p>
+    <dl class="facts"><div><dt>Trigger and clock</dt><dd id="cycle-clock"></dd></div><div><dt>Owner role</dt><dd id="cycle-owner"></dd></div><div><dt>Required evidence</dt><dd id="cycle-evidence"></dd></div><div><dt>Durable wait</dt><dd id="cycle-wait"></dd></div><div><dt>Completion rule</dt><dd id="cycle-exit"></dd></div></dl>
+    <div class="tactic"><label for="tactic">Launch and readiness requirements by tactic</label><select id="tactic"><option value="search">Sponsored search</option><option value="display">Display or video</option><option value="offsite">Offsite or partner execution</option></select><p id="tactic-note"></p></div>
+   </article>
+  </div>
+  <noscript><p>The interactive explorer needs JavaScript. Read the complete cycle definitions in the proposal (retained project note).</p></noscript>
+ </section>
+
+ <section class="section" id="authority">
+  <div class="eyebrow">03 / Authority</div><h2>Autonomy belongs to an action and a scope</h2>
+  <p class="section-intro">The same agent can draft a report automatically while a launch, budget amendment, or client release still needs a specific human decision. Promotion applies to proven capabilities and procedures.</p>
+  <div class="tier-buttons" id="tier-buttons" aria-label="Autonomy stages"></div>
+  <div class="tier-panel" aria-live="polite"><div><div class="label" id="tier-label"></div><h3 id="tier-title"></h3><p id="tier-description"></p></div><div><ul id="tier-checks"></ul><div class="guard" id="tier-guard"></div></div></div>
+  <details><summary>What a usable grant must specify</summary><ul><li>Action class, authorized role, client, account, retailer, and native entity scope.</li><li>Exact or conditional preconditions, financial and rate limits, protected entities, and expiry.</li><li>Required source coverage, current-state check, provider preview, and effect verification.</li><li>Revocation, escalation, unknown-outcome resolution, and procedure version.</li><li>Build, independent QA, launch, financial amendment, optimization, and report release are separate authorities.</li></ul></details>
+ </section>
+
+ <section class="section" id="recovery">
+  <div class="eyebrow">04 / Recovery</div><h2>A restart must preserve the next correct action</h2>
+  <p class="section-intro">Explore a failure sequence. These are illustrative acceptance scenarios; this page makes no source calls and executes no campaign actions.</p>
+  <div class="scenario-buttons" id="scenario-buttons" aria-label="Recovery scenarios"></div>
+  <div class="recovery-box"><ol class="recovery-steps" id="recovery-steps"></ol><article class="recovery-detail" aria-live="polite"><div class="step-count" id="step-count"></div><h3 id="recovery-title"></h3><p id="recovery-description"></p><div class="controls"><button class="control" id="previous">Previous</button><button class="control primary" id="next">Next step</button><button class="control" id="restart">Restart</button></div></article></div>
+  <p class="fine">Durable workflow execution does not guarantee exactly-once external effects. An unresolved platform response needs reconciliation before another potentially duplicate dispatch.</p>
+ </section>
+
+ <section class="section" id="proof">
+  <div class="eyebrow">05 / Proof and build order</div><h2>Build real vertical slices</h2>
+  <p class="section-intro">Each slice connects source evidence, useful work, human authority, and verified closure. Tests include interruption and changed inputs. Passing a synthetic demo does not prove a real operating cycle.</p>
+  <div class="timeline">
+   <article class="phase"><div class="num">01</div><h3>Prove the sources</h3><p>One real Shopperations scope and complete Skai MCP evidence, including every expected profile and commitment.</p><div class="exit"><strong>Exit:</strong> accepted source contracts and explicit capability gaps.</div></article>
+   <article class="phase"><div class="num">02</div><h3>Prove a decision</h3><p>Shared-budget finding, external wait, human review, material reopening, and safe retry.</p><div class="exit"><strong>Exit:</strong> one accepted revision with no partial decision state.</div></article>
+   <article class="phase"><div class="num">03</div><h3>Prove a launch</h3><p>Exact build packet, builder receipt, independent QA, correction, launch approval, and go-live check.</p><div class="exit"><strong>Exit:</strong> verified launch with durable handoffs.</div></article>
+   <article class="phase"><div class="num">04</div><h3>Prove an effect</h3><p>Supported Skai preview, specific approval, application, lost-response handling, and read-back.</p><div class="exit"><strong>Exit:</strong> known effect state and later outcome assessment.</div></article>
+   <article class="phase"><div class="num">05</div><h3>Prove closeout</h3><p>Operational closure, mature measurement, financial reconciliation, report release, and scoped learning.</p><div class="exit"><strong>Exit:</strong> separate closure evidence for each clock.</div></article>
+   <article class="phase"><div class="num">06</div><h3>Prove reuse</h3><p>Second client and another retailer or tactic; authenticated roles, concurrent reviews, tenant isolation, and restore.</p><div class="exit"><strong>Exit:</strong> configuration reuse with a shared domain model.</div></article>
+  </div>
+  <h3 style="margin-top:32px">Historical cases to preserve</h3>
+  <div class="grid3 historical">
+   <article class="card"><div class="label">H1</div><h3>Omitted shared-budget members</h3><p>Complete membership, one allocation, visible supersession.</p></article>
+   <article class="card"><div class="label">H2</div><h3>Build approved; launch held</h3><p>Exact packet, receipt, independent QA, separate launch authority.</p></article>
+   <article class="card"><div class="label">H3</div><h3>Unresolved keyword attribution</h3><p>Traffic evidence stays useful; unsupported sales claims stay unavailable.</p></article>
+   <article class="card"><div class="label">H4</div><h3>MCP schema drift</h3><p>Retain failure, repair with replay, require fresh acceptance.</p></article>
+   <article class="card"><div class="label">H5</div><h3>Partially eligible planning refresh</h3><p>Use valid reports while retaining the blocked dependency.</p></article>
+   <article class="card"><div class="label">Product measure</div><h3>Less operator effort to verified closure</h3><p>Track edits, evidence requests, missed work, reopened cases, and mature outcomes.</p></article>
+  </div>
+  <p class="fine">See the full acceptance stories (retained project note) for source paths and explicit failure conditions.</p>
+ </section>
+
+ <section class="section" id="sources">
+  <div class="eyebrow">06 / Evidence and confidence</div><h2>Retain what works; prove what is missing</h2>
+  <div class="grid2">
+   <article class="card"><div class="label">Current project</div><h3>Domain and contract discipline</h3><p>Goal buckets, identity, task packs, source limits, review memory, and staged learning. A controlled interruption exposed partial review state across file writes.</p></article>
+   <article class="card"><div class="label">Retail Media</div><h3>Transactional recovery mechanics</h3><p>Evidence retention, revisions, leases, idempotency, and publication recovery tests. Separate stores and blocked real acceptance remain design gaps.</p></article>
+  </div>
+  <details><summary>Evidence and official references</summary><ul>
+   <li>Full rebuild proposal (retained project note), proposed domain model (retained project note), acceptance stories (retained project note), and evidence register (retained project note).</li>
+   <li><a href="https://mcp-guides.skai.io/reporting-mcp">Skai Reporting</a> and <a href="https://mcp-guides.skai.io/campaign-actions-mcp">Campaign Actions</a>: tool families, previews, and current human-approval guidance.</li>
+   <li><a href="https://mcp-guides.skai.io/for-admins">Skai administration</a>: per-person access and connector capabilities. Actual account availability remains to be established.</li>
+   <li><a href="https://docs.temporal.io/workflow-definition">Temporal workflows</a>, <a href="https://docs.temporal.io/activity-definition">Activities</a>, and <a href="https://www.postgresql.org/docs/current/transaction-iso.html">PostgreSQL isolation</a>: proposed runtime foundations, with external-effect limits.</li>
+  </ul></details>
+  <p class="fine">High confidence: differentiated cycles, source boundaries, typed authority, atomic acceptance, and explicit recovery. Moderate confidence: Temporal, PostgreSQL, and the local modular deployment. Unknown: full MCP coverage, unattended account access, and publisher-specific action semantics.</p>
+ </section>
+ <footer class="footer">Proposed rebuild · 4 October 2026 · Static interactive explanation · Existing workspace state and runtime rules are unchanged.</footer>
+</main>
+</div>
+<script>
+document.documentElement.classList.add("js");
+const themeButtons=[...document.querySelectorAll("[data-set-theme]")];
+function setTheme(value){document.documentElement.dataset.theme=value;themeButtons.forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.setTheme===value)));try{localStorage.setItem("rm-theme",value)}catch(e){}}
+themeButtons.forEach(button=>button.addEventListener("click",()=>setTheme(button.dataset.setTheme)));
+setTheme(["light","dark","auto"].includes(document.documentElement.dataset.theme)?document.documentElement.dataset.theme:"auto");
+let printDetails=[];
+window.addEventListener("beforeprint",()=>{printDetails=[...document.querySelectorAll("details")].map(detail=>[detail,detail.open]);printDetails.forEach(([detail])=>detail.open=true)});
+window.addEventListener("afterprint",()=>printDetails.forEach(([detail,open])=>detail.open=open));
+document.getElementById("print-page").addEventListener("click",()=>window.print());
+const cycles=[
+{id:"strategy",group:"Planning",title:"Strategy and scenarios",short:"Annual / quarterly",clock:"Annual or quarterly brief; material business change",owner:"Portfolio planner and client strategy approver",desc:"Translate business objectives into retailer, product, tactic, and period choices.",evidence:"Shopperations planning facts, mature prior outcomes, client constraints, and labeled forecasts.",wait:"Unresolved objective, funding assumption, or client decision.",exit:"Accepted objectives and scenario decision, with assumptions and measurement posture retained."},
+{id:"plan",group:"Planning",title:"Plan intake and amendments",short:"Source revision",clock:"Configured API refresh and material plan change",owner:"Account or planning owner and financial approver",desc:"Observe changes without losing the prior plan or expanding authority from a fetch.",evidence:"Shopperations snapshots, row identities, status policy, approval evidence, and allocation conservation.",wait:"Missing row semantics, disputed amounts, unknown approval, or required upstream correction.",exit:"Current usable plan revision is accepted; affected grants and downstream work are updated."},
+{id:"intake",group:"Planning",title:"Flight intake and calendar",short:"Monthly / new flight",clock:"New approved period or commitment; retailer lead-time deadline",owner:"Launch coordinator",desc:"Create a backward calendar for the work needed before execution starts.",evidence:"Accepted plan, goal, product scope, retailer capability, brief, and role assignments.",wait:"Missing brief, builder, creative, account input, or readiness dependency.",exit:"Exact flight scope, due dates, owners, and required launch checks are ready."},
+{id:"portfolio",group:"Planning",title:"Portfolio review and reforecast",short:"Weekly / event",clock:"Weekly review and material delivery or funding change",owner:"Portfolio operator and strategy or financial approver",desc:"Assess the whole commitment roster and the few decisions that need authority.",evidence:"Complete Skai evidence, Shopperations plan, spend curve, blockers, and forecast assumptions.",wait:"Allocation or goal change, missing profile, or disputed scenario.",exit:"Decisions and owners are recorded; funding changes have explicit amendment authority."},
+{id:"search",group:"Launch",title:"Keyword research and ownership",short:"Before launch / iterative",clock:"New product or campaign brief; accepted search-term evidence",owner:"Search specialist",desc:"Develop product-specific intent, match types, protected terms, and campaign ownership.",evidence:"Skai MCP search or keyword capabilities where accepted, product identity, and retailer rules.",wait:"Unsupported capability, unresolved relevance, negative conflict, or unclear destination.",exit:"An exact targeting candidate passes scope and relevance checks and its action review."},
+{id:"readiness",group:"Launch",title:"Creative and item readiness",short:"Dependency deadlines",clock:"Brief, creative revision, assortment change, or eligibility event",owner:"Creative or product owner and launch coordinator",desc:"Prove that the selected tactic can operate with the intended products and assets.",evidence:"Accepted creative and product scope; current eligibility or explicit owned capability gap.",wait:"Creative approval, buyability, inventory confirmation, landing check, or partner response.",exit:"All tactic-specific readiness conditions pass for the exact scope and versions."},
+{id:"build",group:"Launch",title:"Build and independent QA",short:"Build receipt / correction",clock:"Approved packet, builder receipt, or corrected configuration",owner:"Builder and independent checker",desc:"Compare the platform entities with the approved build, then resolve each mismatch.",evidence:"Exact packet, build authority, member-level receipt, and current Skai MCP configuration.",wait:"Receipt, missing entity field, QA failure, or correction.",exit:"Independent QA passes the current configuration; launch still has its own authority."},
+{id:"launch",group:"Launch",title:"Launch and go-live verification",short:"Start deadline",clock:"Approved start time and separate launch decision",owner:"Launch approver and operator",desc:"Authorize go-live and verify that the intended execution actually started.",evidence:"Current QA, valid financial scope, launch grant, Skai preview where used, and read-back.",wait:"Launch hold, expired permission, failed status change, or expected-delivery lag.",exit:"Current launch state and delivery checks meet the declared start conditions."},
+{id:"delivery",group:"Operations",title:"Delivery monitoring",short:"Complete local days",clock:"Source completion and retailer-local monitoring calendar",owner:"Flight operator",desc:"Check complete coverage, delivery, pacing, and current constraints against the plan.",evidence:"Skai MCP results, full commitment roster, identity, measurement contracts, and spend curve.",wait:"Truncation, missing profile, incomplete day, unsupported field, or stale configuration.",exit:"Valid findings or an evidenced no-action disposition; next check remains scheduled."},
+{id:"investigate",group:"Operations",title:"Investigation and optimization",short:"Finding / outcome lag",clock:"Material finding, accepted new evidence, or outcome-review timer",owner:"Investigator and action approver",desc:"Test the cause, choose a bounded intervention, and assess its result after the correct lag.",evidence:"Purpose-accepted MCP evidence, hypotheses, exact proposed change, grant, and baseline.",wait:"Diagnostic gap, approval, unknown effect, or immature outcome.",exit:"Verified effect or no-action decision, followed by a scoped outcome assessment."},
+{id:"maintain",group:"Operations",title:"Keyword and assortment maintenance",short:"Weekly / product event",clock:"Search review or change to product, availability, price, or campaign membership",owner:"Search or product operator",desc:"Maintain relevance and eligibility as the assortment and query evidence change.",evidence:"Exact native ownership, protected terms, product identity, accepted MCP fields, and current scope.",wait:"Product relevance, inventory capability, negative conflict, or immature measurement.",exit:"Approved changes are verified; unresolved product or measurement issues remain owned."},
+{id:"incident",group:"Operations",title:"Incident response and recovery",short:"Impact event",clock:"Delivery failure, unintended change, source outage, or missed launch",owner:"Incident owner and containment approver",desc:"Contain the impact, retain responsibility, and prove recovery.",evidence:"Affected entities, valid authority, current platform state, source health, and incident timeline.",wait:"Unknown external effect, retailer fix, credential renewal, or recovery permission.",exit:"Cause and effect are resolved with verification; follow-up prevention work remains linked."},
+{id:"follow",group:"Operations",title:"External follow-through",short:"Human response / SLA",clock:"Evidence request, builder handoff, retailer response, or deadline",owner:"Named account, partner, or coordination role",desc:"Keep work and its next escalation alive while people respond.",evidence:"Exact request, recipient role, authorized channel, response, and acceptance rule.",wait:"External response with owner, due time, and next wake recorded.",exit:"Accepted evidence resolves the dependency; approved follow-ups have receipts."},
+{id:"report",group:"Measurement",title:"Reporting and release",short:"Weekly / monthly",clock:"Reporting period, review deadline, or source correction",owner:"Reporting analyst and audience release approver",desc:"Produce whole-retailer facts, tactic detail, and a clear account of limitations.",evidence:"Accepted source revision, metric definitions, traceable calculations, and exact output version.",wait:"Missing scope, narrative review, client approval, or corrected results.",exit:"Exact report version is approved for its audience and delivery is recorded."},
+{id:"opclose",group:"Measurement",title:"Operational closeout",short:"Execution end",clock:"Approved end time or explicit cancellation",owner:"Operator and closeout coordinator",desc:"End the intended execution and clear its remaining operational obligations.",evidence:"Skai status and receipts, accepted end scope, partner obligations, and unresolved effects.",wait:"Continuing entities, unknown effects, partner receipt, or unresolved incident.",exit:"Execution ended as intended and obligations are resolved; measurement and finance stay separate."},
+{id:"measure",group:"Measurement",title:"Measurement maturity and restatement",short:"Attribution tail",clock:"Declared metric maturity and correction checks",owner:"Measurement analyst",desc:"Wait for results to settle before final claims and retain later corrections.",evidence:"Skai MCP outcomes, attribution and correction contracts, target/halo scope, and report lineage.",wait:"Attribution tail, unresolved metric definition, incomplete period, or correction.",exit:"Purpose-specific mature outcome is accepted; corrections create a linked new version."},
+{id:"finance",group:"Measurement",title:"Financial reconciliation",short:"Accounting period",clock:"Spend actualization, invoice arrival, credit, or settlement deadline",owner:"Financial or account owner",desc:"Reconcile commitments, spend, fees, and unresolved liabilities on compatible bases.",evidence:"Shopperations commitment, Skai spend, and separately accepted invoice, fee, credit, or accrual facts.",wait:"Cost-basis mismatch, invoice variance, missing credit, or unresolved funding.",exit:"Declared financial closure conditions pass; unsupported settlement stays unresolved."},
+{id:"experiment",group:"Learning",title:"Experiments and causal assessment",short:"Exposure / maturity",clock:"Approved hypothesis, experiment schedule, and stopping rule",owner:"Experiment designer and approver",desc:"Define the comparison and decision rule before the intervention.",evidence:"Assignment unit, comparator, measurement basis, exposure, and supported platform capability.",wait:"Insufficient exposure, invalid assignment, missing comparator, or immature results.",exit:"A valid assessment records effect and uncertainty without unsupported causal claims."},
+{id:"businesslearn",group:"Learning",title:"Business learning",short:"Reviewed mature outcome",clock:"Outcome acceptance or period review",owner:"Learning analyst and domain reviewer",desc:"Connect decisions to implementation and mature results with clear applicability.",evidence:"Decision, verified effect, outcome, alternative explanations, and product or retailer scope.",wait:"Missing implementation proof, immature result, or conflicting evidence.",exit:"A reviewed scoped lesson is accepted, rejected, or retained as provisional."},
+{id:"steward",group:"Learning",title:"Procedure and source stewardship",short:"Drift / evaluation / drill",clock:"Schema change, credential expiry, incident, held-out evaluation, or restore drill",owner:"Source and procedure steward",desc:"Improve work methods and source reliability without letting agents rewrite authority.",evidence:"Versioned schemas and procedures, failure traces, held-out cases, grants, and recovery receipts.",wait:"Fresh source acceptance, credential renewal, policy review, or unresolved restore result.",exit:"A reviewed change passes independent checks; affected capability and autonomy are re-evaluated."}
+];
+const groups=["All","Planning","Launch","Operations","Measurement","Learning"];
+let activeGroup="All",activeCycle="strategy";
+const byId=id=>document.getElementById(id);
+function setText(id,value){byId(id).textContent=value}
+function renderCycles(){
+ const visible=cycles.filter(c=>activeGroup==="All"||c.group===activeGroup);
+ if(!visible.some(c=>c.id===activeCycle))activeCycle=visible[0].id;
+ byId("cycle-filters").replaceChildren(...groups.map(group=>{const b=document.createElement("button");b.className="filter";b.textContent=group;b.setAttribute("aria-pressed",String(group===activeGroup));b.onclick=()=>{activeGroup=group;renderCycles()};return b}));
+ byId("cycle-list").replaceChildren(...visible.map(c=>{const b=document.createElement("button");b.className="cycle-btn";b.setAttribute("aria-pressed",String(c.id===activeCycle));const s=document.createElement("span");s.textContent=c.title;const sm=document.createElement("small");sm.textContent=c.short;b.append(s,sm);b.onclick=()=>{activeCycle=c.id;renderCycles()};return b}));
+ const c=cycles.find(c=>c.id===activeCycle);
+ setText("cycle-count",visible.length+" of "+cycles.length+" designed cycles");
+ for(const pair of [["group",c.group],["title",c.title],["desc",c.desc],["clock",c.clock],["owner",c.owner],["evidence",c.evidence],["wait",c.wait],["exit",c.exit]])setText("cycle-"+pair[0],pair[1]);
+}
+const tacticNotes={search:"Check exact products, ad items, keyword ownership, match types, negative conflicts, budgets, dates, and retailer search support. Inventory or buyability gaps remain owned dependencies.",display:"Add creative format and version, placement, audience, landing destination, tracking, trafficking, and review requirements. Search readiness does not establish display or video readiness.",offsite:"Add partner brief, contract and funding scope, delivery receipt, measurement handoff, and retailer or vendor acceptance. A sent brief does not prove launch or delivery."};
+byId("tactic").onchange=()=>setText("tactic-note",tacticNotes[byId("tactic").value]);
+setText("tactic-note",tacticNotes.search);
+const tiers=[
+{button:"1 Collect and calculate",title:"Automate reliable evidence work",desc:"Run source retrieval, completeness checks, identity validation, and deterministic calculations on a schedule.",checks:["Use accepted account scope and purpose-specific source contracts.","Retain failures, gaps, and source revisions.","Raise owned work for unsupported capability or invalid evidence."],guard:"Automatic acquisition does not approve a plan, authorize launch, or make an incomplete result usable."},
+{button:"2 Stage useful work",title:"Draft decisions and exact changes",desc:"Agents can investigate, develop options, prepare launch packets, and draft reports within a bounded assignment.",checks:["Propose structured candidates with evidence and limitations.","Keep financial and platform changes inspectable.","Use independent checks before acceptance or release."],guard:"A draft and a model confidence score do not create authority. External communication needs release permission."},
+{button:"3 Execute approved work",title:"Apply a specific authorized effect",desc:"Execute an exact supported operation after current-state checks, preview, and specific approval.",checks:["Bind authority to the preview and material preconditions.","Retain operation key, member receipts, and outcome-unknown states.","Verify application through MCP; assess business results later."],guard:"Skai currently recommends human preview and approval for Campaign Actions. The first deployment retains that step."},
+{button:"4 Earn bounded autonomy",title:"Grant a proven action class",desc:"A reviewed procedure can earn limited automatic authority for a defined account, retailer capability, and duration.",checks:["Pass replay, shadow, real reviewed cases, and recovery drills.","Enforce financial and rate limits, protected scope, expiry, and revocation.","Demote the grant when capability, procedure, or incident evidence changes."],guard:"This is a future tier. Unattended platform execution requires provider permission and proven technical support; a broad 'auto mode' is not a grant."}
+];
+let activeTier=0;
+function renderTier(){byId("tier-buttons").replaceChildren(...tiers.map((t,i)=>{const b=document.createElement("button");b.className="tier";b.textContent=t.button;b.setAttribute("aria-pressed",String(i===activeTier));b.onclick=()=>{activeTier=i;renderTier()};return b}));const t=tiers[activeTier];setText("tier-label","Stage "+(activeTier+1));setText("tier-title",t.title);setText("tier-description",t.desc);setText("tier-guard",t.guard);byId("tier-checks").replaceChildren(...t.checks.map(v=>{const li=document.createElement("li");li.textContent=v;return li}))}
+const scenarios=[
+{button:"Lost apply response",steps:[
+["Persist the intent","The ledger records the exact operation, targets, grant, expected prior state, and stable operation key before dispatch."],
+["Approve the current preview","Current funding, scope, permissions, and platform preconditions pass. The exact provider preview is approved."],
+["Dispatch, then lose the response","Skai may have applied the operation. The worker stops before a usable receipt reaches the application."],
+["Resume as outcome unknown","The replacement worker reads the persisted attempt. It does not send the same potentially duplicate operation again."],
+["Reconcile independent evidence","A receipt or change log together with current-state read-back must prove application or non-application. Ambiguity remains blocked for resolution."],
+["Verify the known effect","If exact application is proven, retain that proof and close the effect once. The business outcome is assessed after its declared lag."]]},
+{button:"Worker waiting on a person",steps:[
+["Open a dependency","Record the evidence requested, owner, authorized recipient, due time, and resolution condition."],
+["Persist the waiting state","The work retains its plan, scope, hypotheses, prior attempts, and next wake time. No model session must remain alive."],
+["Replace the stopped worker","The new worker loads the same assignment and unresolved dependency without redoing completed work."],
+["Wake at the deadline","The timer creates one follow-up or escalation task. Sending remains subject to its communication grant."],
+["Accept the response","Validate the returned evidence and attribution. A response alone does not satisfy every resolution condition."],
+["Resume the affected work","Close the proven dependency, reassess current preconditions, and continue the exact next step."]]},
+{button:"Plan reduced before dispatch",steps:[
+["Stage an authorized candidate","The candidate is valid against the accepted plan and current platform scope."],
+["Observe a confirmed reduction","A complete Shopperations revision establishes a lower or cancelled commitment. A missing row alone would remain unresolved."],
+["Restrict dependent authority","Invalidate affected grant preconditions and block further dispatch. Preserve the historical approval and plan."],
+["Resolve the amendment","A financial approver resolves the change and the authoritative Shopperations plan reflects it."],
+["Prepare a current candidate","Recalculate the allowable scope and retain a fresh preview. Expired or superseded approval cannot be reused."],
+["Authorize and verify","Use current authority, apply only supported changes, and verify the resulting platform state."]]},
+{button:"Decision committed; reply lost",steps:[
+["Validate the review command","Check expected revision, role, evidence, and idempotency key."],
+["Accept the whole decision","The review, action, context, event, queue transition, and outbox entry commit together."],
+["Lose the acknowledgement","The process stops after commit. The accepted decision is intact even though its caller saw no success."],
+["Retry the same command","The command receipt returns the prior accepted result. A different payload using the same key is rejected."],
+["Resume reliable dispatch","The outbox and workflow use stable IDs and deduplicated receipts to recover remaining bookkeeping."],
+["Render one accepted revision","Every view resolves through the accepted manifest. No pending review is combined with an accepted action."]]}
+];
+let activeScenario=0,activeStep=0;
+function renderRecovery(){byId("scenario-buttons").replaceChildren(...scenarios.map((s,i)=>{const b=document.createElement("button");b.className="scenario";b.textContent=s.button;b.setAttribute("aria-pressed",String(i===activeScenario));b.onclick=()=>{activeScenario=i;activeStep=0;renderRecovery()};return b}));const s=scenarios[activeScenario];byId("recovery-steps").replaceChildren(...s.steps.map((step,i)=>{const li=document.createElement("li");li.textContent=step[0];li.className=i===activeStep?"current":i<activeStep?"done":"";if(i===activeStep)li.setAttribute("aria-current","step");return li}));setText("step-count","Step "+(activeStep+1)+" of "+s.steps.length);setText("recovery-title",s.steps[activeStep][0]);setText("recovery-description",s.steps[activeStep][1]);byId("previous").disabled=activeStep===0;byId("next").disabled=activeStep===s.steps.length-1}
+byId("previous").onclick=()=>{if(activeStep>0){activeStep--;renderRecovery()}};
+byId("next").onclick=()=>{if(activeStep<scenarios[activeScenario].steps.length-1){activeStep++;renderRecovery()}};
+byId("restart").onclick=()=>{activeStep=0;renderRecovery()};
+renderCycles();renderTier();renderRecovery();
+const navLinks=[...document.querySelectorAll(".toc a")];
+const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){navLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+entry.target.id))}}},{rootMargin:"-12% 0px -65% 0px",threshold:0});
+document.querySelectorAll("section[id]").forEach(section=>observer.observe(section));
+</script>
+</body>
+</html>
